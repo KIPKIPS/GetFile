@@ -1,33 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Get_Picture {
-
-
     class Program {
         public static void Main() {
-            Console.Write("请输入要查询的目录:");
+            //源文件夹
+            Console.Write("Please enter the folder you need to find :");
             string searchDir = Console.ReadLine();
+            //复制的目标文件夹
+            Console.Write("Please enter the destination folder :");
+            string tarDir = Console.ReadLine();
 
-            Console.Write("请输入要复制的目录:");
-            string copyDir = Console.ReadLine();
-
+            //查找的文件类型
+            Console.Write("Please enter the file suffix :");
+            string fileType = Console.ReadLine();
             try {
                 if (searchDir != null) {
-                    ListFiles(new DirectoryInfo(searchDir), copyDir);
+                    ListFiles(new DirectoryInfo(searchDir), tarDir, fileType);
                 }
-
             }
             catch (IOException e) {
                 Console.WriteLine(e.Message);
             }
+
+            Console.WriteLine("Task finished");
             Console.ReadLine();
         }
-        public static void ListFiles(FileSystemInfo info, string copyDir) {
+        public static void ListFiles(FileSystemInfo info, string tarDir,string fileType) {
             if (!info.Exists) return;
             DirectoryInfo dir = info as DirectoryInfo;
             //不是目录
@@ -35,19 +34,19 @@ namespace Get_Picture {
             FileSystemInfo[] files = dir.GetFileSystemInfos();
             for (int i = 0; i < files.Length; i++) {
                 FileInfo file = files[i] as FileInfo;
-                //是文件
                 if (file != null) {
-                    //Console.WriteLine(file.FullName + "\t " + file.Length);
                     //Console.WriteLine(file.Extension);
-                    if (file.Extension == ".png") {
+                    //if (file.Extension == "."+ fileType) {
+                    if (file.Extension == "."+fileType) {
                         Console.WriteLine(file.FullName);
-                        string desPath = copyDir+"/" + file.Name;
-                        file.CopyTo(desPath);
+                        string desPath = tarDir + "/" + file.Name;
+                        file.CopyTo(desPath,true);//允许覆盖文件
                     }
                 }
-                //对于子目录，进行递归调用
+                //子目录递归查找
                 else
-                    ListFiles(files[i], copyDir);
+                    //ListFiles(files[i], tarDir,"."+ fileType);
+                    ListFiles(files[i], tarDir, "." + fileType);
             }
         }
     }
