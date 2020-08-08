@@ -1,5 +1,5 @@
 # Get_File
-一个工具,获取文件夹目录下的所有.png文件,并复制到另一个文件夹
+一个工具,获取文件夹目录下的所有.xxx(自定义)文件,并复制到另一个文件夹,基于C#
 ## 获取指定目录包含的文件和子目录
     1. DirectoryInfo.GetFiles()：获取目录中（不包含子目录）的文件，返回类型为FileInfo[]，支持通配符查找；
     2. DirectoryInfo.GetDirectories()：获取目录（不包含子目录）的子目录，返回类型为DirectoryInfo[]，支持通配符查找；
