@@ -37,7 +37,7 @@ namespace Get_Picture {
                 if (file != null) {
                     //Console.WriteLine(file.Extension);
                     //if (file.Extension == "."+ fileType) {
-                    if (file.Extension == "."+fileType) {
+                    if (file.Extension == ".png") {
                         Console.WriteLine(file.FullName);
                         string desPath = tarDir + "/" + file.Name;
                         file.CopyTo(desPath,true);//允许覆盖文件
@@ -46,7 +46,7 @@ namespace Get_Picture {
                 //子目录递归查找
                 else
                     //ListFiles(files[i], tarDir,"."+ fileType);
-                    ListFiles(files[i], tarDir, "." + fileType);
+                    ListFiles(files[i], tarDir, ".png");
             }
         }
     }
