@@ -18,8 +18,7 @@ namespace Get_Picture {
                 if (searchDir != null) {
                     ListFiles(new DirectoryInfo(searchDir), tarDir, fileType);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 Console.WriteLine(e.Message);
             }
 
@@ -37,16 +36,14 @@ namespace Get_Picture {
                 if (file != null) {
                     //Console.WriteLine(file.Extension);
                     //if (file.Extension == "."+ fileType) {
-                    if (file.Extension == ".png") {
+                    if (file.Extension == "." + fileType) {
                         Console.WriteLine(file.FullName);
                         string desPath = tarDir + "/" + file.Name;
-                        file.CopyTo(desPath,true);//允许覆盖文件
+                        file.CopyTo(desPath, true);//允许覆盖文件
                     }
+                } else { //子目录递归查找
+                    ListFiles(files[i], tarDir, fileType);
                 }
-                //子目录递归查找
-                else
-                    //ListFiles(files[i], tarDir,"."+ fileType);
-                    ListFiles(files[i], tarDir, ".png");
             }
         }
     }
